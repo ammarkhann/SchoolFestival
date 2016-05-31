@@ -1,0 +1,49 @@
+import javax.swing.*;
+
+public class SchoolView extends JPanel {
+  private JTextField selectedStandName;
+  private JComboBox<String> stands;
+  private JLabel standLabel;
+  private School school;
+  private SchoolController schoolController;
+
+  public SchoolView(School school) {
+    
+    this.school = school;
+    stands = new JComboBox<String>();
+    add(stands);
+    addStandLabel();
+    addStandInfoLabel();
+    addStandInfoField();
+    this.schoolController = new SchoolController(school, selectedStandName);
+   setStandsName();
+  }
+
+  private void addStandLabel() {
+    standLabel = new JLabel("Stands");
+    add(standLabel);
+  }
+
+  private void addStandInfoLabel() {
+    JLabel selectedStandInfo = new JLabel("Stand Info");
+    add(selectedStandInfo);
+  }
+
+  private void addStandInfoField() {
+    selectedStandName = new JTextField();
+    add(selectedStandName);
+    selectedStandName.setColumns(20);
+ 
+  }
+  
+ public void setStandsName(){
+		for (int index = 0; index < school.getStands().size(); index++) {
+			String standsName = school.getStands().get(index).getStandName();
+			stands.insertItemAt(standsName, index);	
+			stands.addActionListener(schoolController);
+			System.out.println();
+		}
+ }
+  
+ 
+}
